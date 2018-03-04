@@ -97,29 +97,27 @@ class encryptionKey: #note: use 'self' variables for instance classes
 
 def encrypt_message(msg, public_key):
     encrypted = [ord(c) for c in msg]
-    print(encrypted)
     encrypted = [(exp_by_squaring(i,public_key[1]) % public_key[0]) for i in encrypted]
     return encrypted
 
 def decrypt_message(encrypted, private_key):
     msg = [(exp_by_squaring(i,private_key[1]) % private_key[0]) for i in encrypted]
     msg = [int(i) for i in msg]
-    print(msg)
     msg = [chr(c) for c in msg]
     decrypted = "".join(msg)
     return decrypted
 
 
-primes = eratosthenes(100)
+primes = eratosthenes(1000)
 
 joshKey = encryptionKey()
-print("publicKey[0] and [1]: {} {}".format(joshKey.publicKey[0],joshKey.publicKey[1]))
-print("privateKey[0] and [1]: {} {}".format(joshKey.privateKey[0],joshKey.privateKey[1]))
+#print("publicKey[0] and [1]: {} {}".format(joshKey.publicKey[0],joshKey.publicKey[1]))
+#print("privateKey[0] and [1]: {} {}".format(joshKey.privateKey[0],joshKey.privateKey[1]))
 
 message = "Hello, W671orld!"
 encrypted = encrypt_message(message,joshKey.publicKey)
 decrypted = decrypt_message(encrypted, joshKey.privateKey)
 
-#print(encrypted)
+print(encrypted)
 
-print(decrypted.encode("utf-8"))
+print(decrypted)
